@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.csu.mypetstore.persistence.ProductMapper">
+
+    <select id="getProductListByCategory" parameterType="string" resultType="Product">
+        select productid,name,descn as description,category as categoryId from product where category = #{CategoryId}
+    </select>
+    <select id="getProduct" parameterType="string" resultType="Product">
+        select productid,name,descn as description,category as categoryId from product where productid = #{productId}
+    </select>
+    <select id="searchProductList" parameterType="string" resultType="Product">
+        SELECT
+            PRODUCTID,
+            NAME,
+            DESCN as description,
+            CATEGORY as categoryId
+        FROM PRODUCT
+        WHERE lower(name) like #{value}
+    </select>
+</mapper>
+        <!--注意parameterType为string 而 不是 String
+        parameterType为String时，需要在mapper接口中定义@Param要传入的字符串名
+        xxxMapper.xml
+        例如：  List<DynaTableField> tableName(@Param("dynaKey") String dynaKey);
+        -->
